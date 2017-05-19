@@ -1,0 +1,10 @@
+Find the user with the most reviews
+Only show the first and last name of the user and number of reviews 
+Expected: => Frida, Kahlo, 5
+User.joins(:reviews).select('users.first_name, users.last_name, COUNT(reviews.id) AS num_reviews').group('users.id').order('num_reviews DESC').limit(1)
+
+Find the restaurant with the most reviews
+Only show the restaurant name, established year and number of reviews
+Expected: => Friendly's, 1964, 4
+Restaurant.joins(:reviews).select('restaurants.name,restaurants.established, COUNT(reviews.id) AS num_reviews').group('restaurants.id').order('num_reviews DESC').limit(1)
+
