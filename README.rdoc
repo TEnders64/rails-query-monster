@@ -2,9 +2,9 @@
 
 * If you're on Ruby 2.2 and Rails 4.2.x
   * Simply clone the repo
-  * run ```bundle install```
-  * run ```rake db:migrate```
-  * run ```rake db:seeds```
+  * run # bundle install
+  * run # rake db:migrate
+  * run # rake db:seeds
 
 * If you're on Rails 5....
   * Start a new rails project
