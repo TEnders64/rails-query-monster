@@ -1,10 +1,36 @@
-Find the user with the most reviews
-Only show the first and last name of the user and number of reviews 
-Expected: => Frida, Kahlo, 5
-User.joins(:reviews).select('users.first_name, users.last_name, COUNT(reviews.id) AS num_reviews').group('users.id').order('num_reviews DESC').limit(1)
+1. How many users are there? 
+User.count
 
-Find the restaurant with the most reviews
-Only show the restaurant name, established year and number of reviews
-Expected: => Friendly's, 1964, 4
+2. How many users are there in Seattle?
+User.joins(:address).where("addresses.city = 'Seattle'").select("addresses.city, COUNT(users.id) AS num_users")
+
+3. How many users aren't in Seattle?
+User.joins(:address).where.not("addresses.city = 'Seattle'").count
+
+4. Show how many reviews each user has written.
+User.joins(:reviews).group('users.id').select("users.first_name, users.last_name, COUNT(reviews.id) AS num_reviews")
+
+5. Who has written the most reviews?
+User.joins(:reviews).group('users.id').select('users.first_name, users.last_name, COUNT(reviews.id) AS num_reviews').order('num_reviews DESC').limit(1)
+
+6. Which city has the most restaurants?
+Restaurant.joins(:address).group("addresses.city").select("addresses.city, COUNT(restaurants.id) AS num_restaurants").order("num_restaurants DESC").limit(1)
+
+7. Find the restaurant with the most reviews
 Restaurant.joins(:reviews).select('restaurants.name,restaurants.established, COUNT(reviews.id) AS num_reviews').group('restaurants.id').order('num_reviews DESC').limit(1)
 
+8. Show how many users have reviewed each restaurant.
+Restaurant.joins(:reviews).group("restaurants.id").select("COUNT(reviews.id) AS num_reviews, restaurants.name")
+
+9. Find the users that have reviewed 2 or more restaurants.
+User.joins(:reviews).select("users.first_name, users.last_name, COUNT(reviews.id) AS num_reviews").group("users.id").having("num_reviews >= 2")
+
+10. Find the users that have NOT reviewed restaurant #1.
+>>>????
+
+11. Find the restaurants that have not been reviewed by user #1.
+
+
+12. Find the restaurants that were established before 1960.
+
+13. Find the restaurants that were established between 1960 & 1980
